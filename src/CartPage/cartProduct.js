@@ -154,7 +154,7 @@ const handleCheckOut = ()=> {
           ))}
 
         <div className={`${classes.itemLayout} ${classes.navbar}`}> 
-        <div style={{paddingRight :'280px'}}> <p><FontAwesomeIcon icon={faArrowLeft}/> Continue shopping </p> </div>
+        <div onClick={ () => navigate('/shop',{replace : true})} style={{paddingRight :'280px',cursor :'pointer'}}> <p><FontAwesomeIcon icon={faArrowLeft}/> Continue shopping </p> </div>
         <div style={{paddingTop : '17px',paddingLeft :'280px'}}><button  onClick={handleCheckOut} style={{width : '200px',height : '40px'}}>Proceed to checkout <FontAwesomeIcon icon={faArrowRight}/> </button> </div>
         </div>
       </div>

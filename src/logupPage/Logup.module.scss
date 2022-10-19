@@ -1,8 +1,9 @@
 .wrapper{
-position: relative;
-align-items: center;
+
+
 background-color: rgb(244,245,249);
-height: auto;
+height: max-content;
+// z-index: 29;
 }
 .wrapper img{
 width: 100%;
@@ -15,7 +16,7 @@ width: 100%;
     background-color: rgb(1, 23, 16,0.1);
     width: 30%;
     left: 37%;
-    height: auto;
+    height: max-content;
     z-index: 1;
 }
 .enteredInput{

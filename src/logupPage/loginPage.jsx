@@ -5,9 +5,7 @@ import SignupUser from "./Logup"
 
 function LoginPage(){
 return <Fragment>
-    <header>
-
-    </header>
+  
     <main>
       <SignupUser/>
     </main>

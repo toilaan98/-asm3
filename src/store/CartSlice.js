@@ -11,8 +11,9 @@ export const CartItemSlice = createSlice({
     quantity: 1,
     totalPrice: 0,
   },
-  reducers: { 
-    addIncrement(state, action) { console.log(action.payload);
+  reducers: {
+    addIncrement(state, action) {
+      console.log(action.payload);
       let arrProducts = SaveFormLocalStorage("arrProducts");
       state.quantity++;
 
@@ -24,14 +25,10 @@ export const CartItemSlice = createSlice({
         );
 
         if (typeof existing === "number") {
-
-     
-          arrProducts[existing].quantity++
+          arrProducts[existing].quantity++;
           arrProducts[existing].total =
             parseInt(arrProducts[existing].total) +
             parseInt(arrProducts[existing].price);
-
-   
 
           state.products = [...arrProducts];
           // console.log(state.products);
@@ -44,31 +41,28 @@ export const CartItemSlice = createSlice({
       if (state.quantity > 1) {
         state.quantity = state.quantity - 1;
       }
-   
+
       if (typeof action.payload === "number") {
         const newItem = action.payload;
 
-        const existing = arrProducts.findIndex((item,index) =>index === newItem);
-      
-        if ( arrProducts[existing].quantity > 0) {
-        
-         
-            console.log(true);
-            arrProducts[existing].quantity--
-            arrProducts[existing].total =
-              parseInt(arrProducts[existing].total) -
-              parseInt(arrProducts[existing].price);
-  
-     
-  
-            state.products = [...arrProducts];
-            
-            // console.log(state.products);
-            setFormLocalstorage("arrProducts", state.products);
-         
-        }else{
+        const existing = arrProducts.findIndex(
+          (item, index) => index === newItem
+        );
+
+        if (arrProducts[existing].quantity > 0) {
+          console.log(true);
+          arrProducts[existing].quantity--;
+          arrProducts[existing].total =
+            parseInt(arrProducts[existing].total) -
+            parseInt(arrProducts[existing].price);
+
           state.products = [...arrProducts];
-          state.products.splice(existing,1)
+
+          // console.log(state.products);
+          setFormLocalstorage("arrProducts", state.products);
+        } else {
+          state.products = [...arrProducts];
+          state.products.splice(existing, 1);
           setFormLocalstorage("arrProducts", state.products);
         }
       }
@@ -87,24 +81,30 @@ export const CartItemSlice = createSlice({
         setFormLocalstorage("arrProducts", state.products);
       }
     },
-    addToCart(state, action) {
+    addToCart(state, action) {console.log(action.payload);
       let arrProducts = SaveFormLocalStorage("arrProducts");
+   console.log(!!arrProducts);
       const newItem = action.payload;
 
-      const existing = arrProducts.find((item) => item.id === newItem.id);
-     console.log(existing);
+      const existing = !!arrProducts === false ? state.products.find((item) => item.id === newItem.id) : 
+      arrProducts.find((item) => item.id === newItem.id) 
+      console.log(existing);
 
       if (existing) {
-     
+       
         existing.quantity = existing.quantity + action.payload.quantity;
         existing.total =
           parseInt(existing.total) +
           parseInt(action.payload.price) * action.payload.quantity;
-  
+
         setFormLocalstorage("arrProducts", state.products);
       } else {
-        state.products = [...arrProducts]
-        state.products.push({
+        // const newarr = state.products = [...arrProducts];
+  console.log(
+    (!!arrProducts ===true ? state.products = [...arrProducts]: state.products));
+      
+
+       (!!arrProducts ===true ? state.products = [...arrProducts]: state.products).push({
           id: newItem.id,
           quantity: newItem.quantity,
           price: newItem.price,
