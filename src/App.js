@@ -1,23 +1,24 @@
-import logo from './logo.svg';
-import './App.css';
+import "./App.css";
+import { Navigate, Route, Routes } from "react-router-dom";
 
+import Publicroutes from "./Routes/Routes";
+import Nav from "./components/Nav";
+import HomePage from "./HomePage/HomePage";
 function App() {
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <Nav/>
+     
+       <Routes>
+       <Route path="/" element={<Navigate to={'/home'}/> }/>
+       {/* <Route path="/home" element={<Navigate to={<HomePage/>}/>}/> */}
+          {Publicroutes.map((route, index) => {
+            const Page = route.component;
+            return <Route key={index} path={route.path} element={<Page/>} />;
+          })}
+       </Routes>
+        
+     
     </div>
   );
 }
